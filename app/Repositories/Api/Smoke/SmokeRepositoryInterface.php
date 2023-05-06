@@ -6,7 +6,7 @@ interface SmokeRepositoryInterface
 {
     public function getList();
 
-    public function create(array $request);
+    public function store(array $request);
 
-    public function updateById(int $id, array $request);
+    public function updateByIdBrandIdUserId(int $id, array $request);
 }

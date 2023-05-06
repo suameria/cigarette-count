@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('brands', function (Blueprint $table) {
-            $table->id();
+            $table->id()->comment('銘柄ID');
             $table->string('name')->comment('銘柄名');
             $table->decimal('price')->comment('金額');
             $table->timestamps();

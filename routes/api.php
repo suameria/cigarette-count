@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\BrandUserController;
-use App\Http\Controllers\SmokeController;
+use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\BrandUserController;
+use App\Http\Controllers\Api\SmokeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +23,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/brands', [BrandController::class, 'index']);
 
-Route::get('/brand-user', [BrandUserController::class, 'index']);
+// 自分が吸っている銘柄
+Route::prefix('brand-user')->group(function () {
+    // 一覧
+    Route::get('/', [BrandUserController::class, 'index']);
+    // 保存
+    Route::post('/', [BrandUserController::class, 'store']);
+    // 削除
+    Route::delete('/{brand_id}', [BrandUserController::class, 'destroy']);
+});
 
-Route::get('/smokes', [SmokeController::class, 'index']);
+// タバコを吸った本数履歴
+Route::prefix('smokes')->group(function () {
+    // 一覧
+    Route::get('/', [SmokeController::class, 'index']);
+    // 履歴
+    // Route::get('/', [SmokeController::class, '']);
+    // 保存
+    Route::post('/', [SmokeController::class, 'store']);
+    // 更新
+    Route::put('/{smoke_id}', [SmokeController::class, 'update']);
+});

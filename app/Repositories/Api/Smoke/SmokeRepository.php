@@ -18,24 +18,24 @@ class SmokeRepository implements SmokeRepositoryInterface
         return $this->smoke->query()->get();
     }
 
-    public function create(array $request)
+    public function store(array $request)
     {
         $this->smoke->query()->create([
-            'name' => $request['name'],
-            'price' => $request['price'],
+            'brand_id' => $request['brand_id'],
+            'user_id' => $request['user_id'],
         ]);
     }
 
-    public function updateById(int $id, array $request)
+    public function updateByIdBrandIdUserId(int $id, array $request)
     {
-        $this->smoke->query()->updateOrCreate(
-            [
-                'id' => $id
-            ],
-            [
-                'name' => $request['name'],
-                'price' => $request['price'],
-            ]
-        );
+        // 該当レコード取得
+        $query = $this->smoke->query();
+        $query = $query->where('brand_id', $request['brand_id']);
+        $query = $query->where('user_id', $request['user_id']);
+        $query = $query->findOrFail($id);
+        // 更新
+        $query->update([
+            'count' => $request['count'],
+        ]);
     }
 }

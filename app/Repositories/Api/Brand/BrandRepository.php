@@ -29,9 +29,7 @@ class BrandRepository implements BrandRepositoryInterface
     public function updateById(int $id, array $request)
     {
         $this->brand->query()->updateOrCreate(
-            [
-                'id' => $id
-            ],
+            ['id' => $id],
             [
                 'name' => $request['name'],
                 'price' => $request['price'],

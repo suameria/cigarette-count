@@ -15,10 +15,15 @@ class BrandUserRepository implements BrandUserRepositoryInterface
 
     public function getList()
     {
-        return $this->brandUser->query()->get();
+        $query = $this->brandUser->query();
+
+        $query = $query->with('brand');
+        // $query = $query->join('brands');
+        return $query->get();
+        // return $this->brandUser->query()->get();
     }
 
-    public function create(array $request)
+    public function store(array $request)
     {
         $this->brandUser->query()->create([
             'brand_id' => $request['brand_id'],
