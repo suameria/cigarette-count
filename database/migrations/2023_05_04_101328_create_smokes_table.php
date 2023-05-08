@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('smokes', function (Blueprint $table) {
-            $table->id()->comment('タバコ吸った本数履歴ID');
+            $table->id()->comment('喫煙本数履歴ID');
             $table->unsignedBigInteger('brand_id')->comment('銘柄ID');
             $table->unsignedBigInteger('user_id')->comment('ユーザーID');
             $table->unsignedSmallInteger('count')->default(0)->comment('吸った本数');
