@@ -35,10 +35,8 @@ Route::prefix('brand-user')->group(function () {
 
 // タバコを吸った本数履歴
 Route::prefix('smokes')->group(function () {
-    // 一覧
-    Route::get('/', [SmokeController::class, 'index']);
-    // 履歴
-    // Route::get('/', [SmokeController::class, '']);
+    // 本日の喫煙本数履歴
+    Route::get('/history', [SmokeController::class, 'history']);
     // 保存
     Route::post('/', [SmokeController::class, 'store']);
     // 更新

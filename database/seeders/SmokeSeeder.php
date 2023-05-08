@@ -14,7 +14,7 @@ class SmokeSeeder extends Seeder
     public function run(): void
     {
         // 2年分ほどの履歴を作成
-        $numbers = range(0, 730);
+        $numbers = range(730, 0);
         foreach ($numbers as $number) {
             // 日付
             $date = now()->subDays($number);

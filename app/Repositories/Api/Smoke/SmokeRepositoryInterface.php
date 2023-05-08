@@ -4,7 +4,7 @@ namespace App\Repositories\Api\Smoke;
 
 interface SmokeRepositoryInterface
 {
-    public function getList();
+    public function getHistoryByDate(string $from, string $to);
 
     public function store(array $request);
 

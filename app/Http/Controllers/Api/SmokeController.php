@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\HistorySmokeRequest;
 use App\Http\Requests\StoreSmokeRequest;
 use App\Http\Requests\UpdateSmokeRequest;
 use App\Models\Smoke;
@@ -17,9 +18,17 @@ class SmokeController extends Controller
         $this->smokeRepository = $smokeRepository;
     }
 
-    public function index()
+    public function history(HistorySmokeRequest $request)
     {
-        return $this->smokeRepository->getList();
+        /**
+         * @todo バリデーションで下記の値がなければ
+         * 本日の日付を入れるようにしておく
+         */
+        $request = $request->all();
+        $dateFrom = now()->parse($request['date_from'])->startOfDay();
+        $dateTo = now()->parse($request['date_to'])->endOfDay();
+
+        return $this->smokeRepository->getHistoryByDate($dateFrom, $dateTo);
     }
 
     public function store(StoreSmokeRequest $request)
