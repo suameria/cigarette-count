@@ -36,12 +36,15 @@ class SmokeSeeder extends Seeder
 
         // 喫煙本数履歴保存
         $brand = Brand::query()->find($brandId);
+        $perPrice = $brand->price / $brand->number;
+        $amount = $perPrice * $count;
         Smoke::query()->create([
             'brand_id' => $brand->id,
             'user_id' => 1,
             'brand_name' => $brand->name,
-            'per_price' => $brand->price / $brand->number,
             'count' => $count,
+            'per_price' => $perPrice,
+            'amount' => $amount,
             'created_at' => $date,
             'updated_at' => $date,
         ]);

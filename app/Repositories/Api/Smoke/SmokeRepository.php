@@ -3,6 +3,7 @@
 namespace App\Repositories\Api\Smoke;
 
 use App\Models\Smoke;
+use Illuminate\Database\Eloquent\Collection;
 
 class SmokeRepository implements SmokeRepositoryInterface
 {
@@ -16,9 +17,15 @@ class SmokeRepository implements SmokeRepositoryInterface
     /**
      * 喫煙本数履歴取得
      */
-    public function getHistoryByDate(string $from, string $to)
+    public function getHistoryByDate(string $from, string $to): Collection
     {
         return $this->smoke->query()
+            ->select([
+                'brand_name',
+                'count',
+                'amount',
+                'created_at',
+            ])
             ->where('user_id', 1)
             ->whereBetween('created_at', [$from, $to])
             ->get();
@@ -49,8 +56,9 @@ class SmokeRepository implements SmokeRepositoryInterface
         // 更新
         $query->update([
             'brand_name' => $request['brand_name'],
-            'per_price' => $request['per_price'],
             'count' => $request['count'],
+            'per_price' => $request['per_price'],
+            'amount' => $request['amount'],
         ]);
     }
 }

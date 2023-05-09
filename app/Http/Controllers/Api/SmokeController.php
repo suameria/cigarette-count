@@ -8,27 +8,24 @@ use App\Http\Requests\StoreSmokeRequest;
 use App\Http\Requests\UpdateSmokeRequest;
 use App\Models\Smoke;
 use App\Repositories\Api\Smoke\SmokeRepositoryInterface;
+use App\Services\Api\Smoke\SmokeServiceInterface;
 
 class SmokeController extends Controller
 {
     private $smokeRepository;
+    private $smokeService;
 
-    public function __construct(SmokeRepositoryInterface $smokeRepository)
-    {
+    public function __construct(
+        SmokeRepositoryInterface $smokeRepository,
+        SmokeServiceInterface $smokeService
+    ) {
         $this->smokeRepository = $smokeRepository;
+        $this->smokeService = $smokeService;
     }
 
     public function history(HistorySmokeRequest $request)
     {
-        /**
-         * @todo バリデーションで下記の値がなければ
-         * 本日の日付を入れるようにしておく
-         */
-        $request = $request->all();
-        $dateFrom = now()->parse($request['date_from'])->startOfDay();
-        $dateTo = now()->parse($request['date_to'])->endOfDay();
-
-        return $this->smokeRepository->getHistoryByDate($dateFrom, $dateTo);
+        return $this->smokeService->getHistories($request->all());
     }
 
     public function store(StoreSmokeRequest $request)
@@ -54,8 +51,9 @@ class SmokeController extends Controller
             'brand_id' => $request->brand_id,
             'user_id' => $request->user_id,
             'brand_name' => $request->brand_name ?? 'test',
-            'per_price' => $request->per_price ?? 26.5,
             'count' => $request->count,
+            'per_price' => $request->per_price ?? 26.5,
+            'amount' => $request->amount ?? 26.5,
         ];
 
         $this->smokeRepository->updateByIdBrandIdUserId($smokeId, $request);

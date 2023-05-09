@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Api\Smoke;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface SmokeRepositoryInterface
 {
-    public function getHistoryByDate(string $from, string $to);
+    public function getHistoryByDate(string $from, string $to): Collection;
 
     public function store(array $request);
 

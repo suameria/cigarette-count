@@ -15,7 +15,8 @@ class Smoke extends Model
         'brand_id',
         'user_id',
         'brand_name',
-        'per_price',
         'count',
+        'per_price',
+        'amount',
     ];
 }
