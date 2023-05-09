@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use App\Models\Smoke;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,16 +19,31 @@ class SmokeSeeder extends Seeder
         foreach ($numbers as $number) {
             // 日付
             $date = now()->subDays($number);
-            // 今日の喫煙本数だけ0より大きい数値、過去の喫煙本数は0~20の数値
-            $count = ($number === 0) ? mt_rand(1, 20) : mt_rand(0, 20);
-            // 喫煙本数履歴保存
-            Smoke::query()->create([
-                'brand_id' => 1,
-                'user_id' => 1,
-                'count' => $count,
-                'created_at' => $date,
-                'updated_at' => $date,
-            ]);
+
+            $this->store(1, $number, $date);
+
+            // 25%の確率で別銘柄も吸う
+            if (mt_rand(1, 4) === 1) {
+                $this->store(2, $number, $date);
+            }
         }
+    }
+
+    public function store($brandId, $number, $date)
+    {
+        // 今日の喫煙本数だけ0より大きい数値、過去の喫煙本数は0~10の数値
+        $count = ($number === 0) ? mt_rand(1, 10) : mt_rand(0, 10);
+
+        // 喫煙本数履歴保存
+        $brand = Brand::query()->find($brandId);
+        Smoke::query()->create([
+            'brand_id' => $brand->id,
+            'user_id' => 1,
+            'brand_name' => $brand->name,
+            'per_price' => $brand->price / $brand->number,
+            'count' => $count,
+            'created_at' => $date,
+            'updated_at' => $date,
+        ]);
     }
 }

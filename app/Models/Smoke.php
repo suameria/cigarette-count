@@ -14,6 +14,8 @@ class Smoke extends Model
     protected $fillable = [
         'brand_id',
         'user_id',
+        'brand_name',
+        'per_price',
         'count',
     ];
 }

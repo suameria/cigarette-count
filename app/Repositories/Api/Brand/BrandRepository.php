@@ -23,6 +23,7 @@ class BrandRepository implements BrandRepositoryInterface
         $this->brand->query()->create([
             'name' => $request['name'],
             'price' => $request['price'],
+            'number' => $request['number'],
         ]);
     }
 
@@ -33,6 +34,7 @@ class BrandRepository implements BrandRepositoryInterface
             [
                 'name' => $request['name'],
                 'price' => $request['price'],
+                'number' => $request['number'],
             ]
         );
     }

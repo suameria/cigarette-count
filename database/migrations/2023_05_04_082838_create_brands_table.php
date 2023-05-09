@@ -11,7 +11,8 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id()->comment('銘柄ID');
             $table->string('name')->comment('銘柄名');
-            $table->decimal('price')->comment('金額');
+            $table->decimal('price')->comment('税込金額');
+            $table->unsignedTinyInteger('number')->default(20)->comment('1箱の本数');
             $table->timestamps();
         });
     }

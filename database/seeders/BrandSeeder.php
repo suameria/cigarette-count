@@ -15,12 +15,14 @@ class BrandSeeder extends Seeder
     {
         Brand::query()->create([
             'name' => 'SENTIA for IQOS ILUMA ICY PURPLE',
-            'price' => '530',
+            'price' => 530,
+            'number' => 20,
         ]);
 
         Brand::query()->create([
             'name' => 'SENTIA for IQOS ILUMA TROPICAL YELLOW',
-            'price' => '530',
+            'price' => 530,
+            'number' => 20,
         ]);
     }
 }

@@ -32,6 +32,7 @@ class SmokeRepository implements SmokeRepositoryInterface
         $this->smoke->query()->create([
             'brand_id' => $request['brand_id'],
             'user_id' => $request['user_id'],
+            'brand_name' => $request['brand_name'],
         ]);
     }
 
@@ -47,6 +48,8 @@ class SmokeRepository implements SmokeRepositoryInterface
             ->findOrFail($id);
         // 更新
         $query->update([
+            'brand_name' => $request['brand_name'],
+            'per_price' => $request['per_price'],
             'count' => $request['count'],
         ]);
     }

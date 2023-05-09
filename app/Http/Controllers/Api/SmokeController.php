@@ -33,9 +33,13 @@ class SmokeController extends Controller
 
     public function store(StoreSmokeRequest $request)
     {
+        /**
+         * @todo バリデーションでbrand_idからbrand_nameを加工しておくこと
+         */
         $request = [
             'brand_id' => $request->brand_id,
             'user_id' => $request->user_id,
+            'brand_name' => $request->brand_name,
         ];
 
         $this->smokeRepository->store($request);
@@ -43,9 +47,14 @@ class SmokeController extends Controller
 
     public function update(UpdateSmokeRequest $request, $smokeId)
     {
+        /**
+         * @todo バリデーションでbrand_idからbrand_name, per_priceを加工しておく
+         */
         $request = [
             'brand_id' => $request->brand_id,
             'user_id' => $request->user_id,
+            'brand_name' => $request->brand_name ?? 'test',
+            'per_price' => $request->per_price ?? 26.5,
             'count' => $request->count,
         ];
 

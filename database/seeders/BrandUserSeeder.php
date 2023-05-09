@@ -17,5 +17,10 @@ class BrandUserSeeder extends Seeder
             'brand_id' => 1,
             'user_id' => 1,
         ]);
+
+        BrandUser::query()->create([
+            'brand_id' => 2,
+            'user_id' => 1,
+        ]);
     }
 }
