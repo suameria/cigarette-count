@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,5 +27,33 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function render($request, Throwable $e)
+    {
+        if ($request->is('api/*')) {
+            return $this->apiErrorResponse($request, $e);
+        }
+
+
+        return parent::render($request, $e);
+    }
+
+    private function apiErrorResponse($request, $e)
+    {
+        if ($this->isHttpException($e)) {
+            $statusCode = $e->getStatusCode();
+
+            switch ($statusCode) {
+                case 400:
+                    return response()->error(Response::HTTP_BAD_REQUEST, 'Bad Request');
+                case 401:
+                    return response()->error(Response::HTTP_UNAUTHORIZED, 'Unauthorized');
+                case 403:
+                    return response()->error(Response::HTTP_FORBIDDEN, 'Forbidden');
+                case 404:
+                    return response()->error(Response::HTTP_NOT_FOUND, 'Not Found');
+            }
+        }
     }
 }

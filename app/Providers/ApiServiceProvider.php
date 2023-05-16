@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Api\Smoke\SmokeService;
 use App\Services\Api\Smoke\SmokeServiceInterface;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
 class ApiServiceProvider extends ServiceProvider
@@ -30,6 +31,12 @@ class ApiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Error (4xx, 5xx)
+        Response::macro('error', function ($status, $message) {
+            return response()->json([
+                'code' => $status,
+                'message' => $message,
+            ], $status);
+        });
     }
 }
