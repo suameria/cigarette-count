@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
 use Throwable;
@@ -31,14 +32,18 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $e)
     {
+        // API側
         if ($request->is('api/*')) {
             return $this->apiErrorResponse($request, $e);
         }
 
-
+        // WEB側
         return parent::render($request, $e);
     }
 
+    /**
+     * APIエラーハンドリング
+     */
     private function apiErrorResponse($request, $e)
     {
         if ($this->isHttpException($e)) {
@@ -54,6 +59,11 @@ class Handler extends ExceptionHandler
                 case 404:
                     return response()->error(Response::HTTP_NOT_FOUND, 'Not Found');
             }
+        }
+
+        // 上記のHTTP例外以外はすべて500
+        if ($e instanceof Exception) {
+            return response()->error(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
         }
     }
 }
