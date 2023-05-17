@@ -3,8 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -59,6 +61,11 @@ class Handler extends ExceptionHandler
                 case 404:
                     return response()->error(Response::HTTP_NOT_FOUND, 'Not Found');
             }
+        }
+
+        // findOrFailとfirstOrFail用
+        if ($e instanceof ModelNotFoundException) {
+            return response()->error(Response::HTTP_NOT_FOUND, 'Not Found');
         }
 
         // 上記のHTTP例外以外はすべて500
