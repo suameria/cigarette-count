@@ -8,6 +8,8 @@ use App\Repositories\Api\BrandUser\BrandUserRepository;
 use App\Repositories\Api\BrandUser\BrandUserRepositoryInterface;
 use App\Repositories\Api\Smoke\SmokeRepository;
 use App\Repositories\Api\Smoke\SmokeRepositoryInterface;
+use App\Repositories\Api\User\UserRepository;
+use App\Repositories\Api\User\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -29,6 +31,10 @@ class RepositoryServiceProvider extends ServiceProvider
             [
                 'repository' => SmokeRepository::class,
                 'interface'  => SmokeRepositoryInterface::class
+            ],
+            [
+                'repository' => UserRepository::class,
+                'interface'  => UserRepositoryInterface::class
             ],
         ];
 
