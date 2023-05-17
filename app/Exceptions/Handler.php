@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
         }
 
         // 上記のHTTP例外以外はすべて500
-        if ($e instanceof Exception) {
+        if ($e instanceof Throwable) {
             return response()->error(Response::HTTP_INTERNAL_SERVER_ERROR, 'Internal Server Error');
         }
     }
