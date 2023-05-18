@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::middleware('api.key.check')->group(function () {
     Route::post('/user', [UserController::class, 'store']);
     Route::post('/login', [AuthenticatedController::class, 'login']);
