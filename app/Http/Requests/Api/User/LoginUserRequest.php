@@ -7,7 +7,7 @@ use App\Repositories\Api\User\UserRepositoryInterface;
 use App\Rules\ExistEmail;
 use App\Rules\Password;
 
-class LoginRequest extends ApiRequest
+class LoginUserRequest extends ApiRequest
 {
     private $user;
 
