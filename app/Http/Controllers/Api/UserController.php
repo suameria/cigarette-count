@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\User\LoginUserRequest;
 use App\Http\Requests\Api\User\StoreUserRequest;
 use App\Services\Api\User\UserServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
@@ -20,10 +21,10 @@ class UserController extends Controller
     /**
      * ユーザー登録(アクセストークンを返却)
      *
-     * @param  mixed $request
-     * @return void
+     * @param  StoreUserRequest $request
+     * @return JsonResponse
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request): JsonResponse
     {
         $data = $this->userService->createUser($request->toArray());
         return response()->success(Response::HTTP_CREATED, $data);
@@ -32,10 +33,10 @@ class UserController extends Controller
     /**
      * ログイン(アクセストークンを返却)
      *
-     * @param  mixed $request
-     * @return void
+     * @param  LoginUserRequest $request
+     * @return JsonResponse
      */
-    public function login(LoginUserRequest $request)
+    public function login(LoginUserRequest $request): JsonResponse
     {
         $data = ['accessToken' => $request->accessToken];
         return response()->success(Response::HTTP_OK, $data);
