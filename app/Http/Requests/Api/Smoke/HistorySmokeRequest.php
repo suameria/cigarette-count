@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\Smoke;
 
-use Illuminate\Foundation\Http\FormRequest;
+use App\Http\Requests\Api\ApiRequest;
 
-class HistorySmokeRequest extends FormRequest
+class HistorySmokeRequest extends ApiRequest
 {
     public function authorize(): bool
     {

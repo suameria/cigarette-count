@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\StoreBrandRequest;
-use App\Http\Requests\Api\UpdateBrandRequest;
+use App\Http\Requests\Api\Brand\StoreBrandRequest;
+use App\Http\Requests\Api\Brand\UpdateBrandRequest;
 use App\Repositories\Api\Brand\BrandRepositoryInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\User;
 
+use App\Http\Requests\Api\ApiRequest;
 use App\Models\User;
 use Illuminate\Validation\Rules\Password;
 

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HistorySmokeRequest;
-use App\Http\Requests\StoreSmokeRequest;
-use App\Http\Requests\UpdateSmokeRequest;
-use App\Models\Smoke;
+use App\Http\Requests\Api\Smoke\HistorySmokeRequest;
+use App\Http\Requests\Api\Smoke\StoreSmokeRequest;
+use App\Http\Requests\Api\Smoke\UpdateSmokeRequest;
 use App\Repositories\Api\Smoke\SmokeRepositoryInterface;
 use App\Services\Api\Smoke\SmokeServiceInterface;
 

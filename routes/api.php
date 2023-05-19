@@ -1,11 +1,8 @@
 <?php
 
-use App\Http\Controllers\Api\AuthenticatedController;
 use App\Http\Controllers\Api\BrandController;
-use App\Http\Controllers\Api\BrandUserController;
 use App\Http\Controllers\Api\SmokeController;
 use App\Http\Controllers\Api\UserController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,10 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 // APIキー制限
 Route::middleware('api.key.check')->group(function () {
-    // ユーザー登録
     Route::post('/user', [UserController::class, 'store']);
-    // ログイン
-    Route::post('/login', [AuthenticatedController::class, 'login']);
+    Route::post('/login', [UserController::class, 'login']);
 });
 
 // アクセスキー制限

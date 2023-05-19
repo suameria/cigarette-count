@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\User;
 
+use App\Http\Requests\Api\ApiRequest;
 use App\Repositories\Api\User\UserRepositoryInterface;
 use App\Rules\ExistEmail;
 use App\Rules\Password;

@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Api\Brand;
+
+use App\Http\Requests\Api\ApiRequest;
 
 class UpdateBrandRequest extends ApiRequest
 {
