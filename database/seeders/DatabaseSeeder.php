@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\BrandUser;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,12 +20,12 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'test@test.com',
+            'password' => Hash::make('test9999'),
         ]);
 
         $this->call([
             BrandSeeder::class,
-            BrandUserSeeder::class,
             SmokeSeeder::class,
         ]);
     }

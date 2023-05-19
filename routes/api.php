@@ -19,25 +19,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// APIキー制限
 Route::middleware('api.key.check')->group(function () {
+    // ユーザー登録
     Route::post('/user', [UserController::class, 'store']);
+    // ログイン
     Route::post('/login', [AuthenticatedController::class, 'login']);
 });
 
+// アクセスキー制限
 Route::middleware('auth:sanctum')->group(function () {
-
-    Route::get('/brands', [BrandController::class, 'index']);
-
-    // 自分が吸っている銘柄
-    Route::prefix('brand-user')->group(function () {
-        // 一覧
-        Route::get('/', [BrandUserController::class, 'index']);
-        // 保存
-        Route::post('/', [BrandUserController::class, 'store']);
-        // 削除
-        Route::delete('/{brand_id}', [BrandUserController::class, 'destroy']);
+    // ユーザーが吸う銘柄
+    Route::prefix('brands')->group(function () {
+        Route::get('/', [BrandController::class, 'index']);
+        Route::post('/', [BrandController::class, 'store']);
+        Route::get('/{brand_id}', [BrandController::class, 'show']);
+        Route::put('/{brand_id}', [BrandController::class, 'update']);
+        Route::delete('/{brand_id}', [BrandController::class, 'delete']);
     });
-
     // タバコを吸った本数履歴
     Route::prefix('smokes')->group(function () {
         // 本日の喫煙本数履歴

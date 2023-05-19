@@ -37,10 +37,18 @@ class ApiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Success (2xx)
+        Response::macro('success', function ($status, $message = null) {
+            return response()->json([
+                'status'  => $status,
+                'message' => $message,
+            ], $status);
+        });
+
         // Error (4xx, 5xx)
         Response::macro('error', function ($status, $message) {
             return response()->json([
-                'code' => $status,
+                'status'  => $status,
                 'message' => $message,
             ], $status);
         });

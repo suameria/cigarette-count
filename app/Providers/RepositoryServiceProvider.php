@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use App\Repositories\Api\Brand\BrandRepository;
 use App\Repositories\Api\Brand\BrandRepositoryInterface;
-use App\Repositories\Api\BrandUser\BrandUserRepository;
-use App\Repositories\Api\BrandUser\BrandUserRepositoryInterface;
 use App\Repositories\Api\Smoke\SmokeRepository;
 use App\Repositories\Api\Smoke\SmokeRepositoryInterface;
 use App\Repositories\Api\User\UserRepository;
@@ -23,10 +21,6 @@ class RepositoryServiceProvider extends ServiceProvider
             [
                 'repository' => BrandRepository::class,
                 'interface'  => BrandRepositoryInterface::class
-            ],
-            [
-                'repository' => BrandUserRepository::class,
-                'interface'  => BrandUserRepositoryInterface::class
             ],
             [
                 'repository' => SmokeRepository::class,
