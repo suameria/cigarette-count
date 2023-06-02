@@ -22,6 +22,7 @@ class HistorySmokeRequest extends ApiRequest
     protected function passedValidation(): void
     {
         $this->merge([
+            'user_id'   => auth()->user()->id,
             'date_from' => now()->parse($this->date_from)->startOfDay()->toDateTimeString(),
             'date_to'   => now()->parse($this->date_to)->endOfDay()->toDateTimeString(),
         ]);

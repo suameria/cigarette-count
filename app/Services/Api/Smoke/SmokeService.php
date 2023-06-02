@@ -24,7 +24,8 @@ class SmokeService implements SmokeServiceInterface
         ];
 
         // 喫煙本数履歴取得
-        $smokes = $this->smokeRepository->getHistoryByDate(
+        $smokes = $this->smokeRepository->getHistoryByUserIdDate(
+            $request['user_id'],
             $request['date_from'],
             $request['date_to']
         );

@@ -14,6 +14,26 @@ class SmokeRepository implements SmokeRepositoryInterface
         $this->smoke = $smoke;
     }
 
+    public function findByIdUserId(int $id, int $userId): Smoke|null
+    {
+        return $this->smoke->query()
+            ->select([
+                'id',
+                'brand_id',
+                'user_id',
+                'brand_name',
+                'count',
+                'per_price',
+                'amount',
+            ])
+            ->with([
+                'brand:id,user_id,name,price,number',
+                'brand.user:id,name'
+            ])
+            ->where('user_id', $userId)
+            ->find($id);
+    }
+
     public function findTodayByBrandIdUserId(int $brandId, int $userId): Smoke|null
     {
         return $this->smoke->query()
@@ -23,7 +43,7 @@ class SmokeRepository implements SmokeRepositoryInterface
             ->first();
     }
 
-    public function getHistoryByDate(string $from, string $to): Collection
+    public function getHistoryByUserIdDate(int $userId, string $from, string $to): Collection
     {
         return $this->smoke->query()
             ->select([
@@ -33,7 +53,7 @@ class SmokeRepository implements SmokeRepositoryInterface
                 'amount',
                 'created_at',
             ])
-            ->where('user_id', 1)
+            ->where('user_id', $userId)
             ->whereBetween('created_at', [$from, $to])
             ->get();
     }

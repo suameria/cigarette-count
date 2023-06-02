@@ -55,19 +55,7 @@ class SmokeController extends Controller
      */
     public function update(UpdateSmokeRequest $request, int $smokeId): JsonResponse
     {
-        /**
-         * @todo バリデーションでbrand_idからbrand_name, per_priceを加工しておく
-         */
-        $request = [
-            'brand_id' => $request->brand_id,
-            'user_id' => $request->user_id,
-            'brand_name' => $request->brand_name ?? 'test',
-            'count' => $request->count,
-            'per_price' => $request->per_price ?? 26.5,
-            'amount' => $request->amount ?? 26.5,
-        ];
-
-        $this->smokeRepository->updateById($smokeId, $request);
+        $this->smokeRepository->updateById($smokeId, $request->all());
         return response()->success(Response::HTTP_OK, null);
     }
 }
