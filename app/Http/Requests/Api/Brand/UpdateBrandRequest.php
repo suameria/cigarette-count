@@ -13,8 +13,7 @@ class UpdateBrandRequest extends ApiRequest
 
     public function rules(): array
     {
-        return [
-            //
-        ];
+        // 保存と同じバリデーション
+        return (new StoreBrandRequest())->rules();
     }
 }
