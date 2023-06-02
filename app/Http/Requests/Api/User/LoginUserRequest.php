@@ -16,8 +16,9 @@ class LoginUserRequest extends ApiRequest
         return true;
     }
 
-    public function rules(UserRepositoryInterface $userRepository): array
+    public function rules(): array
     {
+        $userRepository = app()->make(UserRepositoryInterface::class);
         // ユーザー取得
         $this->user = $userRepository->getByEmail($this->email);
 
@@ -35,9 +36,6 @@ class LoginUserRequest extends ApiRequest
         return $rules;
     }
 
-    /**
-     * バリデーション完了後
-     */
     protected function passedValidation(): void
     {
         $accessToken = explode('|', $this->user->createToken($this->email)->plainTextToken)[1];

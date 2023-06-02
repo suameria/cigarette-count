@@ -14,13 +14,20 @@ class SmokeRepository implements SmokeRepositoryInterface
         $this->smoke = $smoke;
     }
 
-    /**
-     * 喫煙本数履歴取得
-     */
+    public function findTodayByBrandIdUserId(int $brandId, int $userId): Smoke|null
+    {
+        return $this->smoke->query()
+            ->where('brand_id', $brandId)
+            ->where('user_id', $userId)
+            ->whereBetween('created_at', [now()->startOfDay(), now()->endOfDay()])
+            ->first();
+    }
+
     public function getHistoryByDate(string $from, string $to): Collection
     {
         return $this->smoke->query()
             ->select([
+                'id',
                 'brand_name',
                 'count',
                 'amount',
@@ -31,34 +38,29 @@ class SmokeRepository implements SmokeRepositoryInterface
             ->get();
     }
 
-    /**
-     * 保存
-     */
-    public function store(array $request)
+    public function store(array $request): void
     {
-        $this->smoke->query()->create([
-            'brand_id' => $request['brand_id'],
-            'user_id' => $request['user_id'],
+        $data = [
+            'brand_id'   => $request['brand_id'],
+            'user_id'    => $request['user_id'],
             'brand_name' => $request['brand_name'],
-        ]);
+            'count'      => 0,
+            'per_price'  => 0,
+            'amount'     => 0,
+        ];
+
+        $this->smoke->query()->create($data);
     }
 
-    /**
-     * 喫煙本数履歴履歴ID、銘柄ID、ユーザーIDで喫煙本数の更新
-     */
-    public function updateByIdBrandIdUserId(int $id, array $request)
+    public function updateById(int $id, array $request): void
     {
-        // 該当レコード取得
-        $query = $this->smoke->query()
-            ->where('brand_id', $request['brand_id'])
-            ->where('user_id', $request['user_id'])
-            ->findOrFail($id);
-        // 更新
-        $query->update([
+        $data = [
             'brand_name' => $request['brand_name'],
-            'count' => $request['count'],
-            'per_price' => $request['per_price'],
-            'amount' => $request['amount'],
-        ]);
+            'count'      => $request['count'],
+            'per_price'  => $request['per_price'],
+            'amount'     => $request['amount'],
+        ];
+
+        $this->smoke->query()->findOrFail($id)->update($data);
     }
 }

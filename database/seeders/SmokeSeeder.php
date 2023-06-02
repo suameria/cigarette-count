@@ -39,12 +39,12 @@ class SmokeSeeder extends Seeder
         $perPrice = $brand->price / $brand->number;
         $amount = $perPrice * $count;
         Smoke::query()->create([
-            'brand_id' => $brand->id,
-            'user_id' => 1,
+            'brand_id'   => $brand->id,
+            'user_id'    => $brand->user_id,
             'brand_name' => $brand->name,
-            'count' => $count,
-            'per_price' => $perPrice,
-            'amount' => $amount,
+            'count'      => $count,
+            'per_price'  => $perPrice,
+            'amount'     => $amount,
             'created_at' => $date,
             'updated_at' => $date,
         ]);

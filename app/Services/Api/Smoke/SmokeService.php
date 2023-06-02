@@ -15,14 +15,12 @@ class SmokeService implements SmokeServiceInterface
         $this->smokeRepository = $smokeRepository;
     }
 
-    public function getHistories(array $request): array
+    public function createHistories(array $request): array
     {
         // 喫煙本数履歴格納配列
         $histories = [
-            // 日毎
-            'every' => null,
-            // 集計
-            'total' => null,
+            'every' => null, // 日毎
+            'total' => null, // 集計
         ];
 
         // 喫煙本数履歴取得
@@ -31,27 +29,31 @@ class SmokeService implements SmokeServiceInterface
             $request['date_to']
         );
 
-        // 合計喫煙本数
-        $histories['total']['count'] = $smokes->sum('count');
-        // 合計金額
-        $histories['total']['amount'] = $smokes->sum('amount');
-
+        // 日毎の配列
         $periods = CarbonPeriod::since($request['date_from'])->until($request['date_to']);
 
         foreach ($periods as $date) {
+            // 日付で喫煙本数履歴を絞る
             $targetSmokes = $smokes->whereBetween('created_at', [
                 Carbon::parse($date)->startOfDay(),
                 Carbon::parse($date)->endOfDay()
             ]);
 
+            // その日に喫煙した本数と金額
             foreach ($targetSmokes as $targetSmoke) {
                 $histories['every'][$date->format('Y-m-d')][] = [
+                    'id'         => $targetSmoke->id,
                     'brand_name' => $targetSmoke->brand_name,
-                    'count' => $targetSmoke->count,
-                    'amount' => $targetSmoke->amount,
+                    'count'      => $targetSmoke->count,
+                    'amount'     => $targetSmoke->amount,
                 ];
             }
         }
+
+        // 合計喫煙本数
+        $histories['total']['count'] = $smokes->sum('count');
+        // 合計金額
+        $histories['total']['amount'] = $smokes->sum('amount');
 
         return $histories;
     }

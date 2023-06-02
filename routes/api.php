@@ -34,11 +34,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     // タバコを吸った本数履歴
     Route::prefix('smokes')->group(function () {
-        // 本日の喫煙本数履歴
         Route::get('/history', [SmokeController::class, 'history']);
-        // 保存
         Route::post('/', [SmokeController::class, 'store']);
-        // 更新
         Route::put('/{smoke_id}', [SmokeController::class, 'update']);
     });
 });

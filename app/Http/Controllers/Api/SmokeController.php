@@ -8,40 +8,52 @@ use App\Http\Requests\Api\Smoke\StoreSmokeRequest;
 use App\Http\Requests\Api\Smoke\UpdateSmokeRequest;
 use App\Repositories\Api\Smoke\SmokeRepositoryInterface;
 use App\Services\Api\Smoke\SmokeServiceInterface;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class SmokeController extends Controller
 {
     private $smokeRepository;
     private $smokeService;
 
-    public function __construct(
-        SmokeRepositoryInterface $smokeRepository,
-        SmokeServiceInterface $smokeService
-    ) {
+    public function __construct(SmokeRepositoryInterface $smokeRepository, SmokeServiceInterface $smokeService)
+    {
         $this->smokeRepository = $smokeRepository;
-        $this->smokeService = $smokeService;
+        $this->smokeService    = $smokeService;
     }
 
-    public function history(HistorySmokeRequest $request)
+    /**
+     * 喫煙本数履歴検索
+     *
+     * @param  HistorySmokeRequest $request
+     * @return JsonResponse
+     */
+    public function history(HistorySmokeRequest $request): JsonResponse
     {
-        return $this->smokeService->getHistories($request->all());
+        $data = $this->smokeService->createHistories($request->all());
+        return response()->success(Response::HTTP_OK, $data);
     }
 
-    public function store(StoreSmokeRequest $request)
+    /**
+     * 喫煙本数履歴保存
+     *
+     * @param  StoreSmokeRequest $request
+     * @return JsonResponse
+     */
+    public function store(StoreSmokeRequest $request): JsonResponse
     {
-        /**
-         * @todo バリデーションでbrand_idからbrand_nameを加工しておくこと
-         */
-        $request = [
-            'brand_id' => $request->brand_id,
-            'user_id' => $request->user_id,
-            'brand_name' => $request->brand_name,
-        ];
-
-        $this->smokeRepository->store($request);
+        $this->smokeRepository->store($request->all());
+        return response()->success(Response::HTTP_CREATED, null);
     }
 
-    public function update(UpdateSmokeRequest $request, $smokeId)
+    /**
+     * 喫煙本数履歴更新
+     *
+     * @param  UpdateSmokeRequest $request
+     * @param  int $smokeId
+     * @return JsonResponse
+     */
+    public function update(UpdateSmokeRequest $request, int $smokeId): JsonResponse
     {
         /**
          * @todo バリデーションでbrand_idからbrand_name, per_priceを加工しておく
@@ -55,6 +67,7 @@ class SmokeController extends Controller
             'amount' => $request->amount ?? 26.5,
         ];
 
-        $this->smokeRepository->updateByIdBrandIdUserId($smokeId, $request);
+        $this->smokeRepository->updateById($smokeId, $request);
+        return response()->success(Response::HTTP_OK, null);
     }
 }
