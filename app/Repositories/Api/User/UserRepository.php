@@ -16,24 +16,25 @@ class UserRepository implements UserRepositoryInterface
 
     public function getByEmail(string $email): User|null
     {
-        return $this->user->query()->select(
-            [
+        return $this->user->query()
+            ->select([
                 'id',
                 'name',
                 'email',
                 'password',
-            ]
-        )->where('email', $email)->first();
+            ])
+            ->where('email', $email)
+            ->first();
     }
 
     public function store(array $request): User
     {
-        $user = $this->user->query()->create([
-            'name' => $request['name'],
-            'email' => $request['email'],
+        $data = [
+            'name'     => $request['name'],
+            'email'    => $request['email'],
             'password' => Hash::make($request['password']),
-        ]);
+        ];
 
-        return $user;
+        return $this->user->query()->create($data);
     }
 }

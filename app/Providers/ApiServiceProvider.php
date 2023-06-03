@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use App\Services\Api\Smoke\SmokeService;
 use App\Services\Api\Smoke\SmokeServiceInterface;
-use App\Services\Api\User\UserService;
-use App\Services\Api\User\UserServiceInterface;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,10 +18,6 @@ class ApiServiceProvider extends ServiceProvider
             [
                 'repository' => SmokeService::class,
                 'interface'  => SmokeServiceInterface::class
-            ],
-            [
-                'repository' => UserService::class,
-                'interface'  => UserServiceInterface::class
             ],
         ];
 

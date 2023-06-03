@@ -15,7 +15,7 @@ interface UserRepositoryInterface
     public function getByEmail(string $email): User|null;
 
     /**
-     * 保存
+     * ユーザー保存
      *
      * @param  array $request
      * @return User
