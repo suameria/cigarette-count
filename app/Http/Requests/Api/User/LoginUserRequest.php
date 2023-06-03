@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\User;
 
 use App\Http\Requests\Api\ApiRequest;
 use App\Repositories\Api\User\UserRepositoryInterface;
-use App\Rules\ExistEmail;
+use App\Rules\ExistModel;
 use App\Rules\Password;
 
 class LoginUserRequest extends ApiRequest
@@ -23,7 +23,13 @@ class LoginUserRequest extends ApiRequest
         $this->user = $userRepository->getByEmail($this->email);
 
         $rules = [
-            'email' => ['required', 'string', 'email', new ExistEmail($this->user)],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                // メールアドレスが存在しない ユーザーには正しく入力するように促す
+                new ExistModel($this->user, 'Please enter your e-mail address correctly'),
+            ],
         ];
 
         // ユーザーが存在する場合パスワードのバリデーション追加

@@ -14,10 +14,7 @@ class UserRepository implements UserRepositoryInterface
         $this->user = $user;
     }
 
-    /**
-     * メールアドレスからユーザーを取得
-     */
-    public function getByEmail($email): User|null
+    public function getByEmail(string $email): User|null
     {
         return $this->user->query()->select(
             [
@@ -29,9 +26,6 @@ class UserRepository implements UserRepositoryInterface
         )->where('email', $email)->first();
     }
 
-    /**
-     * 保存
-     */
     public function store(array $request): User
     {
         $user = $this->user->query()->create([

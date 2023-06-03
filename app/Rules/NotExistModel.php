@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Database\Eloquent\Model;
 
-class ExistModel implements ValidationRule
+class NotExistModel implements ValidationRule
 {
     private $model;
     private $errorMessage;
