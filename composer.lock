@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35d8ddb74ff4a7dea8f193dc80fa4ae7",
+    "content-hash": "0a732c7c68752143d2d65b3b9e08af13",
     "packages": [
         {
             "name": "brick/math",
@@ -5607,6 +5607,80 @@
             "time": "2022-10-31T15:35:43+00:00"
         },
         {
+            "name": "cerbero/sql-dumper",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cerbero90/sql-dumper.git",
+                "reference": "092708b3a5941ca1bbaeec74915fef424615d160"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cerbero90/sql-dumper/zipball/092708b3a5941ca1bbaeec74915fef424615d160",
+                "reference": "092708b3a5941ca1bbaeec74915fef424615d160",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": ">=5.6",
+                "illuminate/database": ">=5.6",
+                "illuminate/mail": ">=5.6",
+                "illuminate/support": ">=5.6",
+                "jdorn/sql-formatter": "^1.2",
+                "php": "^7.1||^8.0",
+                "symfony/console": ">=4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "orchestra/testbench": ">=3.6",
+                "phpunit/phpunit": ">=7.0",
+                "squizlabs/php_codesniffer": "^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Cerbero\\SqlDumper\\Providers\\SqlDumperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Cerbero\\SqlDumper\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Andrea Marco Sartori",
+                    "email": "andrea.marco.sartori@gmail.com",
+                    "homepage": "https://github.com/cerbero90",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package to dump SQL queries.",
+            "homepage": "https://github.com/cerbero90/sql-dumper",
+            "keywords": [
+                "debug",
+                "laravel",
+                "query",
+                "sql"
+            ],
+            "support": {
+                "issues": "https://github.com/cerbero90/sql-dumper/issues",
+                "source": "https://github.com/cerbero90/sql-dumper/tree/1.2.0"
+            },
+            "time": "2021-01-14T08:10:19+00:00"
+        },
+        {
             "name": "composer/class-map-generator",
             "version": "1.0.0",
             "source": {
@@ -6278,6 +6352,60 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "jdorn/sql-formatter",
+            "version": "v1.2.17",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jdorn/sql-formatter.git",
+                "reference": "64990d96e0959dff8e059dfcdc1af130728d92bc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jdorn/sql-formatter/zipball/64990d96e0959dff8e059dfcdc1af130728d92bc",
+                "reference": "64990d96e0959dff8e059dfcdc1af130728d92bc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.3.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeremy Dorn",
+                    "email": "jeremy@jeremydorn.com",
+                    "homepage": "http://jeremydorn.com/"
+                }
+            ],
+            "description": "a PHP SQL highlighting library",
+            "homepage": "https://github.com/jdorn/sql-formatter/",
+            "keywords": [
+                "highlight",
+                "sql"
+            ],
+            "support": {
+                "issues": "https://github.com/jdorn/sql-formatter/issues",
+                "source": "https://github.com/jdorn/sql-formatter/tree/v1.2.17"
+            },
+            "time": "2014-01-12T16:20:24+00:00"
         },
         {
             "name": "laravel/breeze",

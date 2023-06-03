@@ -29,9 +29,18 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
+
+            if (config('app.env') === 'local') {
+                // 開発環境の場合
+                Route::middleware('api')
+                    ->middleware('sql.dump:log')
+                    ->prefix('api')
+                    ->group(base_path('routes/api.php'));
+            } else {
+                Route::middleware('api')
+                    ->prefix('api')
+                    ->group(base_path('routes/api.php'));
+            }
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
