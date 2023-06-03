@@ -20,10 +20,6 @@
 
 すべての機能にバリデーションをかける o
 
-バリデーション ルールクラスで似ている処理リファクタリング
-ExistEmail, ExistTodaySmoke
--> ExistModel, NotExistModelにリファクタリングできる
-
 テーブルの最適化
 * 外部キーやindexの設定など
 
