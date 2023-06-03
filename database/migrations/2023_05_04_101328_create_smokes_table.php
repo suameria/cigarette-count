@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('smokes', function (Blueprint $table) {
             $table->id()->comment('喫煙本数履歴ID');
-            $table->unsignedBigInteger('brand_id')->comment('銘柄ID');
-            $table->unsignedBigInteger('user_id')->comment('ユーザーID');
+            $table->foreignId('brand_id')->comment('銘柄ID')
+                ->constrained()
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
+            $table->foreignId('user_id')->comment('ユーザーID')
+                ->constrained()
+                ->restrictOnUpdate()
+                ->restrictOnDelete();
             $table->string('brand_name')->comment('銘柄名');
             $table->unsignedSmallInteger('count')->default(0)->comment('喫煙本数');
             $table->decimal('per_price')->default(0)->comment('1本あたりの金額');
